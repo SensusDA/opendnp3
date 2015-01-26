@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+  <metadata>
+    <id>Automatak.DNP3</id>
+    <version>$version$</version>
+    <title>OpenDNP3</title>
+    <authors>Automatak</authors>
+    <owners>Automatak LLC</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>OpenDNP3 is a portable, scalable, and rigorously tested implementation of the DNP3 (www.dnp.org) protocol stack.</description>
+    <releaseNotes>None</releaseNotes>
+    <copyright>Copyright 2012-2015</copyright>
+  </metadata>
+  <files>
+    <file src="CLRAdapter\Release\Win32\DNP3CLRAdapter.dll" target="lib" />
+    <file src="CLRAdapter\Release\Win32\DNP3CLRInterface.dll" target="lib" />
+  </files>
+</package>
