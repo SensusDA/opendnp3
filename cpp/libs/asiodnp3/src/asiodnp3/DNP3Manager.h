@@ -82,6 +82,7 @@ public:
 	* @param minOpenRetry minimum connection retry interval on failure in milliseconds
 	* @param maxOpenRetry minimum connection retry interval on failure in milliseconds
 	* @param host IP address of remote outstation (i.e. 127.0.0.1 or www.google.com)
+	* @param local adapter address on which to attempt the connection (use 0.0.0.0 for all adapters)
 	* @param port Port of remote outstation is listening on
 	* @param strategy Reconnection delay strategy, default to exponential
 	*/
@@ -91,6 +92,7 @@ public:
 	    openpal::TimeDuration minOpenRetry,
 	    openpal::TimeDuration maxOpenRetry,
 	    const std::string& host,
+		const std::string& local,
 	    uint16_t port,	    
 	    opendnp3::IOpenDelayStrategy& strategy = opendnp3::ExponentialBackoffStrategy::Instance());
 

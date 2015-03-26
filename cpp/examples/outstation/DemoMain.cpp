@@ -22,12 +22,9 @@
 #include <asiodnp3/DNP3Manager.h>
 #include <asiodnp3/PrintingSOEHandler.h>
 #include <asiodnp3/ConsoleLogger.h>
+#include <asiodnp3/MeasUpdate.h>
 
 #include <asiopal/UTCTimeSource.h>
-
-
-#include <opendnp3/outstation/TimeTransaction.h>
-
 #include <opendnp3/outstation/SimpleCommandHandler.h>
 
 #include <opendnp3/outstation/Database.h>
@@ -43,6 +40,14 @@ using namespace opendnp3;
 using namespace openpal;
 using namespace asiopal;
 using namespace asiodnp3;
+
+void ConfigureDatabase(DatabaseConfigView view)
+{
+	// example of configuring analog index 0 for Class2 with floating point variations by default
+	view.analogs[0].variation = StaticAnalogVariation::Group30Var5;
+	view.analogs[0].metadata.clazz = PointClass::Class2;
+	view.analogs[0].metadata.variation = EventAnalogVariation::Group32Var7;
+}
 
 int main(int argc, char* argv[])
 {
@@ -91,11 +96,9 @@ int main(int argc, char* argv[])
 	// updating the outstation's database.
 	auto pOutstation = pChannel->AddOutstation("outstation", SuccessCommandHandler::Instance(), DefaultOutstationApplication::Instance(), stackConfig);
 
-
-	// You can optionally change the default reporting variations
-	// stackConfig.outstation.defaultEventResponses.binary = EventBinaryVariation::Group2Var2;
-	// stackConfig.outstation.defaultEventResponses.analog = EventAnalogVariation::Group32Var3;
-
+	// You can optionally change the default reporting variations or class assignment prior to enabling the outstation
+	ConfigureDatabase(pOutstation->GetConfigView());
+	
 	// Enable the outstation and start communications
 	pOutstation->Enable();	
 
@@ -111,8 +114,9 @@ int main(int argc, char* argv[])
 		std::cout << "Enter one or more measurement changes then press <enter>" << std::endl;
 		std::cout << "c = counter, b = binary, d = doublebit, a = analog, x = exit" << std::endl;
 		std::cin >> input;
+		
+		MeasUpdate tx(pOutstation);
 
-		TimeTransaction tx(pOutstation->GetDatabase(), UTCTimeSource::Instance().Now());
 		for (char& c : input)
 		{
 			switch (c)
