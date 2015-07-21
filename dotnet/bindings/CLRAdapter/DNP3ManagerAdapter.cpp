@@ -45,12 +45,17 @@ namespace Automatak
 
 			IChannel^ DNP3ManagerAdapter::AddTCPClient(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, System::String^ address, System::UInt16 port)
 			{
+				return this->AddTCPClient(id, filters, minRetryDelay, maxRetryDelay, "", address, port);
+			}
 
+			IChannel^ DNP3ManagerAdapter::AddTCPClient(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, System::String^ local, System::String^ address, System::UInt16 port)
+			{
 				std::string stdName = Conversions::ConvertString(id);
 				std::string stdAddress = Conversions::ConvertString(address);
+				std::string stdLocal = Conversions::ConvertString(local);
 				uint16_t stdPort = port;
 
-				auto pChannel = pManager->AddTCPClient(stdName.c_str(), filters, Conversions::ConvertTimespan(minRetryDelay), Conversions::ConvertTimespan(maxRetryDelay), stdAddress, "", stdPort);
+				auto pChannel = pManager->AddTCPClient(stdName.c_str(), filters, Conversions::ConvertTimespan(minRetryDelay), Conversions::ConvertTimespan(maxRetryDelay), stdAddress, stdLocal, stdPort);
 				if (pChannel)
 				{
 					auto adapter = gcnew ChannelAdapter(pChannel);

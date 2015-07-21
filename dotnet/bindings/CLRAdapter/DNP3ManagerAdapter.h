@@ -48,6 +48,7 @@ namespace Automatak
 				virtual void Shutdown() sealed;
 
 				virtual IChannel^ AddTCPClient(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, System::String^ address, System::UInt16 port)  sealed;
+				virtual IChannel^ AddTCPClient(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, System::String^ local, System::String^ address, System::UInt16 port)  sealed;
 				virtual IChannel^ AddTCPServer(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, System::String^ endpoint, System::UInt16 port) sealed;
 				virtual IChannel^ AddSerial(System::String^ id, System::UInt32 filters, System::TimeSpan minRetryDelay, System::TimeSpan maxRetryDelay, Automatak::DNP3::Interface::SerialSettings^ settings)  sealed;
 

@@ -60,6 +60,7 @@ java/Release
 *.suo
 *.sdf
 *.opensdf
+*.aps
 clr/DNP3CLRInterface/bin
 clr/DNP3CLRInterface/obj
 clr/DNP3CLRAdapter/Debug
